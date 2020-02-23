@@ -52,7 +52,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<TextWebS
         ctx.executor().schedule(new Runnable() {
             public void run() {
                 try {
-                    Thread.sleep(5000);
+//                    Thread.sleep(5000);
 
                     int nVal1 = testService.getCount();
                     int nVal2 = test1Service.getCount();
@@ -74,6 +74,12 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<TextWebS
         System.out.println("handlerAdded!!!");
         logger.info("Handler 线程：" + Thread.currentThread().getId());
         setChannel.add(ctx.channel());
+        ctx.channel().eventLoop().schedule(new Runnable() {
+            @Override
+            public void run() {
+                logger.info("I/O线程：" + Thread.currentThread().getId());
+            }
+        }, 0, TimeUnit.SECONDS);
     }
 
     @Override
