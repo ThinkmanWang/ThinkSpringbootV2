@@ -3,6 +3,7 @@ package com.thinkman.springboot.controller;
 import com.thinkman.springboot.service.Test1Service;
 import com.thinkman.springboot.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,11 +17,18 @@ public class TestController {
     @Autowired
     Test1Service test1Service;
 
-    @RequestMapping("/hello")
+    @Autowired
+    RedisTemplate redisTemplate;
+
+    @RequestMapping("/test")
     @ResponseBody
     public String hello() {
         int nVal1 = testService.getCount();
         int nVal2 = test1Service.getCount();
+
+        redisTemplate.opsForValue().set("test-2020", "2020");
+        String szVal = (String) redisTemplate.opsForValue().get("test-2020");
+
         return "Hello World";
     }
 }
