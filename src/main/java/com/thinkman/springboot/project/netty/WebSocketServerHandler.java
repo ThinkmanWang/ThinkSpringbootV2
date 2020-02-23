@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @ChannelHandler.Sharable
@@ -31,16 +32,28 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<TextWebS
     private static Set<Channel> setChannel = new HashSet<Channel>();
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, TextWebSocketFrame textWebSocketFrame) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame textWebSocketFrame) throws Exception {
         logger.info("收到消息：" + textWebSocketFrame.text());
-//        channelHandlerContext.channel().writeAndFlush(new TextWebSocketFrame("服务器随机数：" + Math.random()));
         logger.info("Handler 线程：" + Thread.currentThread().getId());
 
+        double dRet = Math.random();
+        for (final Channel channel : setChannel) {
+            channel.eventLoop().schedule(new Runnable() {
+                @Override
+                public void run() {
+                    logger.info("I/O线程：" + Thread.currentThread().getId());
+
+                    channel.writeAndFlush(new TextWebSocketFrame("服务器随机数：" + dRet));
+                }
+            }, 0, TimeUnit.SECONDS);
+        }
+
         //用于执行复杂任务
-        channelHandlerContext.executor().submit(new Runnable() {
+        ctx.executor().schedule(new Runnable() {
             public void run() {
                 try {
                     Thread.sleep(5000);
+
                     int nVal1 = testService.getCount();
                     int nVal2 = test1Service.getCount();
 
@@ -48,28 +61,18 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<TextWebS
                     String szVal = (String) redisTemplate.opsForValue().get("test-2020");
 
                     logger.info("耗时线程：" + Thread.currentThread().getId());
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
             }
-        });
-
-        double dRet = Math.random();
-        for (Channel channel : setChannel) {
-            channel.writeAndFlush(new TextWebSocketFrame("服务器随机数：" + dRet)).addListener(new ChannelFutureListener() {
-                public void operationComplete(ChannelFuture channelFuture) throws Exception {
-                    if (channelFuture.isDone()) {
-
-                    }
-                }
-            });
-        }
+        }, 0, TimeUnit.SECONDS);
     }
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         System.out.println("handlerAdded!!!");
+        logger.info("Handler 线程：" + Thread.currentThread().getId());
         setChannel.add(ctx.channel());
     }
 

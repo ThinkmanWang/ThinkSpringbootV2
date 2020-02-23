@@ -15,6 +15,7 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
+import io.netty.util.concurrent.EventExecutorGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,8 @@ public class MainServer {
 
     @Resource
     WebSocketServerHandler webSocketServerHandler;
+
+    static final EventExecutorGroup mThreadPool = new DefaultEventExecutorGroup(128);
 
     /**
      * 启动netty服务
@@ -48,7 +51,7 @@ public class MainServer {
                             pipeline.addLast(new ChunkedWriteHandler());
                             pipeline.addLast(new HttpObjectAggregator(8192));
                             pipeline.addLast(new WebSocketServerProtocolHandler("/hello"));
-                            pipeline.addLast(new DefaultEventExecutorGroup(128), webSocketServerHandler);
+                            pipeline.addLast(mThreadPool, webSocketServerHandler);
                         }
                     });
 
