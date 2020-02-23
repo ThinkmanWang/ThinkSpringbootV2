@@ -1,7 +1,7 @@
 package com.thinkman.springboot.framework.datasource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.thinkman.springboot.Main;
+import org.apache.log4j.Logger;
 
 /**
  * 数据源切换处理
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DynamicDataSourceContextHolder
 {
-    public static final Logger log = LoggerFactory.getLogger(DynamicDataSourceContextHolder.class);
+    private static final Logger logger = Logger.getLogger(Main.class);
 
     /**
      * 使用ThreadLocal维护变量，ThreadLocal为每个使用该变量的线程提供独立的变量副本，
@@ -23,7 +23,7 @@ public class DynamicDataSourceContextHolder
      */
     public static void setDataSourceType(String dsType)
     {
-        log.info("切换到{}数据源", dsType);
+        logger.info("切换到数据源" + dsType);
         CONTEXT_HOLDER.set(dsType);
     }
 

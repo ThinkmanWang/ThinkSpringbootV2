@@ -12,13 +12,13 @@ public enum DataSourceType
      */
     MASTER,
 
-//    /**
-//     * 从库
-//     */
-//    SLAVE,
-//
-//    /**
-//     * THINKMAN
-//     */
-//    THINKMAN
+    /**
+     * 从库
+     */
+    SLAVE,
+
+    /**
+     * THINKMAN
+     */
+    THINKMAN
 }
