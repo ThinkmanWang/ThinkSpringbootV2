@@ -1,4 +1,4 @@
-package com.thinkman.springboot.mapper;
+package com.thinkman.springboot.project.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

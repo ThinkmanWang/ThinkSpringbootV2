@@ -1,4 +1,4 @@
-package com.thinkman.springboot.mapper;
+package com.thinkman.springboot.project.mapper;
 
 import com.thinkman.springboot.framework.aspecjt.lang.annotation.DataSource;
 import com.thinkman.springboot.framework.aspecjt.lang.enums.DataSourceType;

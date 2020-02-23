@@ -1,17 +1,17 @@
-package com.thinkman.springboot.service;
+package com.thinkman.springboot.project.service;
 
-import com.thinkman.springboot.mapper.Test1Mapper;
+import com.thinkman.springboot.project.mapper.TestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Test1Service {
+public class TestService {
 
     @Autowired
-    Test1Mapper test1Mapper;
+    TestMapper testMapper;
 
     public int getCount() {
-        Integer nVal = test1Mapper.getCount();
+        Integer nVal = testMapper.getCount();
 
         return null == nVal ? 0 : nVal;
     }

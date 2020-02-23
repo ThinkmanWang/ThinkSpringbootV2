@@ -1,7 +1,8 @@
-package com.thinkman.springboot.controller;
+package com.thinkman.springboot.project.controller;
 
-import com.thinkman.springboot.service.Test1Service;
-import com.thinkman.springboot.service.TestService;
+import com.thinkman.springboot.project.service.Test1Service;
+import com.thinkman.springboot.project.service.TestService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class TestController {
         int nVal1 = testService.getCount();
         int nVal2 = test1Service.getCount();
 
-        redisTemplate.opsForValue().set("test-2020", "2020");
+        redisTemplate.opsForValue().set("test-2020", "2021");
         String szVal = (String) redisTemplate.opsForValue().get("test-2020");
 
         return "Hello World";
