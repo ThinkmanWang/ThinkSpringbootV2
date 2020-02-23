@@ -36,34 +36,38 @@ public class MainServer {
      */
     @PostConstruct
     public void start() throws InterruptedException  {
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
-        try {
-            ServerBootstrap serverBootstrap = new ServerBootstrap();
-            serverBootstrap.group(bossGroup, workerGroup)
-                    .channel(NioServerSocketChannel.class)
-                    .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new ChannelInitializer<SocketChannel>() {
-                        @Override
-                        protected void initChannel(SocketChannel socketChannel) throws Exception {
-                            ChannelPipeline pipeline = socketChannel.pipeline();
-                            pipeline.addLast(new HttpServerCodec());
-                            pipeline.addLast(new ChunkedWriteHandler());
-                            pipeline.addLast(new HttpObjectAggregator(8192));
-                            pipeline.addLast(new WebSocketServerProtocolHandler("/hello"));
-                            pipeline.addLast(mThreadPool, webSocketServerHandler);
-                        }
-                    });
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                EventLoopGroup bossGroup = new NioEventLoopGroup();
+                EventLoopGroup workerGroup = new NioEventLoopGroup();
+                try {
+                    ServerBootstrap serverBootstrap = new ServerBootstrap();
+                    serverBootstrap.group(bossGroup, workerGroup)
+                            .channel(NioServerSocketChannel.class)
+                            .handler(new LoggingHandler(LogLevel.INFO))
+                            .childHandler(new ChannelInitializer<SocketChannel>() {
+                                @Override
+                                protected void initChannel(SocketChannel socketChannel) throws Exception {
+                                    ChannelPipeline pipeline = socketChannel.pipeline();
+                                    pipeline.addLast(new HttpServerCodec());
+                                    pipeline.addLast(new ChunkedWriteHandler());
+                                    pipeline.addLast(new HttpObjectAggregator(8192));
+                                    pipeline.addLast(new WebSocketServerProtocolHandler("/hello"));
+                                    pipeline.addLast(mThreadPool, webSocketServerHandler);
+                                }
+                            });
 
-            ChannelFuture channelFuture = serverBootstrap.bind(7777).sync();
-            channelFuture.channel().closeFuture().sync();
-        } catch (Exception ex) {
+                    ChannelFuture channelFuture = serverBootstrap.bind(7777).sync();
+                    channelFuture.channel().closeFuture().sync();
+                } catch (Exception ex) {
 
-        } finally {
-            bossGroup.shutdownGracefully();
-            workerGroup.shutdownGracefully();
-        }
-
+                } finally {
+                    bossGroup.shutdownGracefully();
+                    workerGroup.shutdownGracefully();
+                }
+            }
+        }).start();
     }
 
 //    public static void main(String[] args) throws InterruptedException {
