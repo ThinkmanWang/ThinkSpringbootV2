@@ -1,6 +1,7 @@
 package com.thinkman.springboot.project.netty;
 
 import com.thinkman.springboot.Main;
+import com.thinkman.springboot.common.utils.Threads;
 import com.thinkman.springboot.project.service.Test1Service;
 import com.thinkman.springboot.project.service.TestService;
 import io.netty.channel.*;
@@ -47,6 +48,8 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<TextWebS
                 }
             }, 0, TimeUnit.SECONDS);
         }
+
+        //Threads.sleep(5000);
 
         int nVal1 = testService.getCount();
         int nVal2 = test1Service.getCount();
