@@ -28,7 +28,7 @@ public class MainServer {
     @Resource
     WebSocketServerHandler webSocketServerHandler;
 
-    static final EventExecutorGroup mExecutorGroup = new DefaultEventExecutorGroup(16);
+    static final EventExecutorGroup mExecutorGroup = new DefaultEventExecutorGroup(256);
 
     /**
      * 启动netty服务

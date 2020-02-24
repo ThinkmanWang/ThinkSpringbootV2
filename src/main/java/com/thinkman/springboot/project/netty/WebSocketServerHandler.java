@@ -48,25 +48,31 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<TextWebS
             }, 0, TimeUnit.SECONDS);
         }
 
+        int nVal1 = testService.getCount();
+        int nVal2 = test1Service.getCount();
+
+        redisTemplate.opsForValue().set("test-2020", "2021");
+        String szVal = (String) redisTemplate.opsForValue().get("test-2020");
+
         //用于执行复杂任务
-        ctx.executor().schedule(new Runnable() {
-            public void run() {
-                try {
-//                    Thread.sleep(5000);
-
-                    int nVal1 = testService.getCount();
-                    int nVal2 = test1Service.getCount();
-
-                    redisTemplate.opsForValue().set("test-2020", "2021");
-                    String szVal = (String) redisTemplate.opsForValue().get("test-2020");
-
-                    logger.info("耗时线程：" + Thread.currentThread().getId());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, 0, TimeUnit.SECONDS);
+//        ctx.executor().schedule(new Runnable() {
+//            public void run() {
+//                try {
+////                    Thread.sleep(5000);
+//
+//                    int nVal1 = testService.getCount();
+//                    int nVal2 = test1Service.getCount();
+//
+//                    redisTemplate.opsForValue().set("test-2020", "2021");
+//                    String szVal = (String) redisTemplate.opsForValue().get("test-2020");
+//
+//                    logger.info("耗时线程：" + Thread.currentThread().getId());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        }, 0, TimeUnit.SECONDS);
     }
 
     @Override
