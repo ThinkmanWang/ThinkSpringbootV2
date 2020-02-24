@@ -28,7 +28,7 @@ public class MainServer {
     @Resource
     WebSocketServerHandler webSocketServerHandler;
 
-    static final EventExecutorGroup mThreadPool = new DefaultEventExecutorGroup(128);
+    static final EventExecutorGroup mExecutorGroup = new DefaultEventExecutorGroup(16);
 
     /**
      * 启动netty服务
@@ -54,7 +54,7 @@ public class MainServer {
                                     pipeline.addLast(new ChunkedWriteHandler());
                                     pipeline.addLast(new HttpObjectAggregator(8192));
                                     pipeline.addLast(new WebSocketServerProtocolHandler("/hello"));
-                                    pipeline.addLast(mThreadPool, webSocketServerHandler);
+                                    pipeline.addLast(mExecutorGroup, webSocketServerHandler);
                                 }
                             });
 
