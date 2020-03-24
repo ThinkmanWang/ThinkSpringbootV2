@@ -23,7 +23,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 @Component
-public class MainServer {
+public class MainWSServer {
 
     @Resource
     WebSocketServerHandler webSocketServerHandler;
