@@ -40,7 +40,9 @@ public class TCPClient {
             @Override
             protected void initChannel(Channel ch) throws Exception {
                 ChannelPipeline pipeline = ch.pipeline();
-                pipeline.addLast(new LineBasedFrameDecoder(8192));
+//                pipeline.addLast(new LineBasedFrameDecoder(8192));
+                pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+                pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
                 pipeline.addLast("decoder", new StringDecoder(CharsetUtil.UTF_8));
                 pipeline.addLast("encoder", new StringEncoder(CharsetUtil.UTF_8));
 //                pipeline.addLast(new StringDecoder());
@@ -64,7 +66,7 @@ public class TCPClient {
 
     public static void sendMsg(String msg) throws Exception {
         if(channel!=null){
-            channel.writeAndFlush(msg + "\r\n").sync();
+            channel.writeAndFlush(msg).sync();
         }else{
             logger.warn("消息发送失败,连接尚未建立!");
         }

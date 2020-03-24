@@ -18,7 +18,7 @@ public class TCPServerHandler extends SimpleChannelInboundHandler<Object> {
     protected void channelRead0(ChannelHandlerContext ctx, Object objMsg) throws Exception {
 //        logger.info("FXXK");
         logger.info("SERVER接收到消息:"+objMsg);
-        ctx.channel().writeAndFlush("yes, server is accepted you ,nice !"+objMsg  + "\r\n");
+        ctx.channel().writeAndFlush("yes, server is accepted you ,nice !"+objMsg);
     }
 
     @Override
