@@ -9,7 +9,7 @@
 <script type="text/javascript">
     var socket;
     if(window.WebSocket) {
-        socket = new WebSocket("ws://localhost:7777/hello");
+        socket = new WebSocket("ws://localhost:7777/thinknetty");
         socket.onmessage = function (event) {
             var ta = document.getElementById("resp");
             ta.value = ta.value + "\n" + event.data;
