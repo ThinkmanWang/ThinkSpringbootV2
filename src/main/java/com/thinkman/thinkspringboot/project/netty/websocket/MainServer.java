@@ -16,6 +16,7 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
 import io.netty.util.concurrent.EventExecutorGroup;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -26,6 +27,9 @@ public class MainServer {
 
     @Resource
     WebSocketServerHandler webSocketServerHandler;
+
+    @Value("${websocket.port}")
+    private int port;
 
     static final EventExecutorGroup mExecutorGroup = new DefaultEventExecutorGroup(128);
 
@@ -57,7 +61,7 @@ public class MainServer {
                                 }
                             });
 
-                    ChannelFuture channelFuture = serverBootstrap.bind(7777).sync();
+                    ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
                     channelFuture.channel().closeFuture().sync();
                 } catch (Exception ex) {
 

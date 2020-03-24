@@ -12,6 +12,12 @@ server:
       # Tomcat启动初始化的线程数，默认值25
       min-spare-threads: 16
 
+websocket:
+  port: 7777
+
+tcpserver:
+  port: 9000
+
 spring:
   profiles:
     active: druid
