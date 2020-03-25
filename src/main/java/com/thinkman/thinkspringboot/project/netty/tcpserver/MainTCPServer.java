@@ -83,9 +83,9 @@ public class MainTCPServer {
         bossGroup.shutdownGracefully();
     }
 
-    public static void main(String[] args) throws Exception {
-        logger.info("开始启动TCP服务器...");
-        new MainTCPServer().start();
-    }
+//    public static void main(String[] args) throws Exception {
+//        logger.info("开始启动TCP服务器...");
+//        new MainTCPServer().start();
+//    }
 }
 
