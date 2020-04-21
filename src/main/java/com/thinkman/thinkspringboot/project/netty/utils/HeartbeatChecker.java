@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 public class HeartbeatChecker {
     private static final Logger logger = Logger.getLogger(HeartbeatChecker.class);
 
-    private static final int HEARTBEAT_TIMEOUT = 10 * 1000;
+    private static final int HEARTBEAT_TIMEOUT = 60 * 1000;
 
     @PostConstruct
     public void start() {
