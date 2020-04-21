@@ -23,7 +23,7 @@ public class HeartbeatChecker {
 
                         Thread.sleep(HEARTBEAT_TIMEOUT);
                     } catch (Exception ex) {
-
+                        
                     }
                 }
             }
