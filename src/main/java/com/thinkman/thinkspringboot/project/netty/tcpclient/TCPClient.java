@@ -75,7 +75,7 @@ public class TCPClient {
     public static void main(String[] args) throws Exception {
         try {
 //            long t0 = System.nanoTime();
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 1; i++) {
                 TCPClient.sendMsg(i+"你好1");
             }
 //            long t1 = System.nanoTime();

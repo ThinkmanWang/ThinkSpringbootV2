@@ -1,5 +1,6 @@
 package com.thinkman.thinkspringboot.project.netty.websocket;
 
+import com.thinkman.thinkspringboot.project.netty.utils.HeartbeatChecker;
 import com.thinkman.thinkspringboot.project.service.Test1Service;
 import com.thinkman.thinkspringboot.project.service.TestService;
 import io.netty.channel.*;
@@ -8,9 +9,9 @@ import org.apache.log4j.Logger;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -27,15 +28,35 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<TextWebS
     @Resource
     RedisTemplate redisTemplate;
 
-    private static Set<Channel> setChannel = new HashSet<Channel>();
+    private static ConcurrentSkipListSet<Channel> m_setChannel = new ConcurrentSkipListSet<>();
+    private static HeartbeatChecker mHeartbeatChecker = new HeartbeatChecker();
+
+    @PostConstruct
+    public void init() {
+        mHeartbeatChecker.setListener(new HeartbeatChecker.HeartbeatCheckerListener() {
+            @Override
+            public void onRemove(Channel channel) {
+                logger.info("NO HEARTBEAT, close connection");
+
+                try {
+                    m_setChannel.remove(channel);
+                    channel.close();
+                } catch (Exception ex) {
+                    logger.error(ex.getMessage());
+                }
+            }
+        });
+
+        mHeartbeatChecker.start();
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame textWebSocketFrame) throws Exception {
         logger.info("收到消息：" + textWebSocketFrame.text());
         logger.info("Handler 线程：" + Thread.currentThread().getId());
+        mHeartbeatChecker.onChannelHeartbeat(ctx.channel());
 
-        double dRet = Math.random();
-        for (final Channel channel : setChannel) {
+        for (final Channel channel : m_setChannel) {
             channel.eventLoop().schedule(new Runnable() {
                 @Override
                 public void run() {
@@ -79,7 +100,10 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<TextWebS
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         System.out.println("handlerAdded!!!");
         logger.info("Handler 线程：" + Thread.currentThread().getId());
-        setChannel.add(ctx.channel());
+
+        m_setChannel.add(ctx.channel());
+        mHeartbeatChecker.onChannelConnect(ctx.channel());
+
         ctx.channel().eventLoop().schedule(new Runnable() {
             @Override
             public void run() {
@@ -90,6 +114,8 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<TextWebS
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+        m_setChannel.remove(ctx.channel());
+        mHeartbeatChecker.onChannelDisconnect(ctx.channel());
         System.out.println("handlerRemoved!!!");
     }
 

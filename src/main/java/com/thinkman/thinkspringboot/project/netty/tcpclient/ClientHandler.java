@@ -14,12 +14,12 @@ public class ClientHandler extends SimpleChannelInboundHandler<Object> {
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-//        logger.info("FXXK");
+        logger.info("FXXK");
     }
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
-//        logger.info("FXXK");
+        logger.info("FXXK");
     }
 
     @Override

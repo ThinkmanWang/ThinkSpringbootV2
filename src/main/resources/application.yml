@@ -12,6 +12,9 @@ server:
       # Tomcat启动初始化的线程数，默认值25
       min-spare-threads: 16
 
+netty:
+  heartbeat-timeout: 60000
+
 websocket:
   port: 7777
 
