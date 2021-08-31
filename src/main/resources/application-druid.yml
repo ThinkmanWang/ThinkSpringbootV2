@@ -6,16 +6,16 @@ spring:
         druid:
             # 主库数据源
             master:
-                url: jdbc:mysql://localhost:3306/db_thinkman?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                username: root
-                password: Ab123145
+                url: jdbc:mysql://rm-bp153mnik299d805ijo.mysql.rds.aliyuncs.com:3306/db_school?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: jgame
+                password: Ab!@#145
             # 从库数据源
             slave:
                 # 从数据源开关/默认关闭
                 enabled: true
-                url: jdbc:mysql://localhost:3306/db_test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                username: root
-                password: Ab123145
+                url: jdbc:mysql://rm-bp153mnik299d805ijo.mysql.rds.aliyuncs.com:3306/db_school?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: jgame
+                password: Ab!@#145
 #            thinkman:
 #                enabled: true
 #                url: jdbc:mysql://localhost:3306/db_test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8

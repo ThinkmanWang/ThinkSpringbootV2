@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface TestMapper {
 
-    @Select("SELECT count(1) from t_test")
+    @Select("SELECT count(1) from students")
     public Integer getCount();
 }

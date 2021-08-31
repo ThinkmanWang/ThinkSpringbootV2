@@ -9,6 +9,6 @@ import org.apache.ibatis.annotations.Select;
 @DataSource(DataSourceType.SLAVE)
 public interface Test1Mapper {
 
-    @Select("SELECT count(1) from t_test")
+    @Select("SELECT count(1) from students")
     public Integer getCount();
 }

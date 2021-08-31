@@ -27,8 +27,8 @@ public class TestController {
         int nVal1 = testService.getCount();
         int nVal2 = test1Service.getCount();
 
-        redisTemplate.opsForValue().set("test-2020", "2021");
-        String szVal = (String) redisTemplate.opsForValue().get("test-2020");
+//        redisTemplate.opsForValue().set("test-2020", "2021");
+//        String szVal = (String) redisTemplate.opsForValue().get("test-2020");
 
         return "Hello World";
     }
