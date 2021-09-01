@@ -8,4 +8,5 @@ public interface TestMapper {
 
     @Select("SELECT count(1) from students")
     public Integer getCount();
+
 }
