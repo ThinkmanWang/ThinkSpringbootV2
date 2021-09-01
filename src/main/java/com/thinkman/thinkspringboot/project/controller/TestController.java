@@ -1,6 +1,8 @@
 package com.thinkman.thinkspringboot.project.controller;
 
+import com.google.gson.Gson;
 import com.thinkman.thinkspringboot.Main;
+import com.thinkman.thinkspringboot.common.utils.AjaxResult;
 import com.thinkman.thinkspringboot.project.service.Test1Service;
 import com.thinkman.thinkspringboot.project.service.TestService;
 
@@ -36,5 +38,11 @@ public class TestController {
 //        String szVal = (String) redisTemplate.opsForValue().get("test-2020");
 
         return "Hello World";
+    }
+
+    @RequestMapping("/test_json")
+    @ResponseBody
+    public String testJson() {
+        return new Gson().toJson(AjaxResult.success());
     }
 }
