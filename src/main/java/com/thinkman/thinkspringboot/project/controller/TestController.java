@@ -43,6 +43,7 @@ public class TestController {
     @RequestMapping("/test_json")
     @ResponseBody
     public String testJson() {
+        logger.info("FXXXXXXXK");
         return new Gson().toJson(AjaxResult.success());
     }
 }
