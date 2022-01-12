@@ -31,18 +31,12 @@ public class TestController {
     @Autowired
     StudentService studentService;
 
-    @RequestMapping("/test")
+    @RequestMapping("/helloworld")
     @ResponseBody
-    public String hello() {
+    public AjaxResult hello() {
         logger.info("FXXXXXXXK");
 
-        int nVal1 = testService.getCount();
-        int nVal2 = test1Service.getCount();
-
-//        redisTemplate.opsForValue().set("test-2020", "2021");
-//        String szVal = (String) redisTemplate.opsForValue().get("test-2020");
-
-        return "Hello World";
+        return AjaxResult.success();
     }
 
     @RequestMapping("/test_json")
