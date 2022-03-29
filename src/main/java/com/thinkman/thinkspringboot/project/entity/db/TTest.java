@@ -1,4 +1,4 @@
-package com.thinkman.thinkspringboot.project.model.db;
+package com.thinkman.thinkspringboot.project.entity.db;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;

@@ -1,8 +1,7 @@
 package com.thinkman.thinkspringboot.project.service;
 
 import com.thinkman.thinkspringboot.project.mapper.StudentMapper;
-import com.thinkman.thinkspringboot.project.model.Student;
-import org.apache.ibatis.annotations.Param;
+import com.thinkman.thinkspringboot.project.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

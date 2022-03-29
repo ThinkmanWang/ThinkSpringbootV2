@@ -1,6 +1,6 @@
 package com.thinkman.thinkspringboot.project.mapper;
 
-import com.thinkman.thinkspringboot.project.model.db.TTest;
+import com.thinkman.thinkspringboot.project.entity.db.TTest;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

@@ -1,6 +1,6 @@
 package com.thinkman.thinkspringboot.project.service.impl;
 
-import com.thinkman.thinkspringboot.project.model.db.TTest;
+import com.thinkman.thinkspringboot.project.entity.db.TTest;
 import com.thinkman.thinkspringboot.project.mapper.TTestMapper;
 import com.thinkman.thinkspringboot.project.service.ITTestService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

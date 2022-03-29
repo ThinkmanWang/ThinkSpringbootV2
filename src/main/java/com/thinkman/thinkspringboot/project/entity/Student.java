@@ -1,4 +1,4 @@
-package com.thinkman.thinkspringboot.project.model;
+package com.thinkman.thinkspringboot.project.entity;
 
 import java.util.Date;
 

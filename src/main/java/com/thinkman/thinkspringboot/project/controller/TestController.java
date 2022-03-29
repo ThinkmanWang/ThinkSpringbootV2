@@ -1,9 +1,8 @@
 package com.thinkman.thinkspringboot.project.controller;
 
 import com.google.gson.Gson;
-import com.thinkman.thinkspringboot.Main;
 import com.thinkman.thinkspringboot.common.utils.AjaxResult;
-import com.thinkman.thinkspringboot.project.model.db.TTest;
+import com.thinkman.thinkspringboot.project.entity.db.TTest;
 import com.thinkman.thinkspringboot.project.service.ITTestService;
 import com.thinkman.thinkspringboot.project.service.StudentService;
 import com.thinkman.thinkspringboot.project.service.Test1Service;
