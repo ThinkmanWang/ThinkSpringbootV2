@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 //@SpringBootApplication
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 @MapperScan("com.thinkman.thinkspringboot.project.mapper")
-@MapperScan("com.thinkman.thinkspringboot.project.mapper.xml")
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class);
 
