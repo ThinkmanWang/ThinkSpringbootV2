@@ -2,6 +2,7 @@ package com.thinkman.thinkspringboot.project.model;
 
 import java.util.Date;
 
+
 public class Student {
     private int s_id;
     private String s_name;

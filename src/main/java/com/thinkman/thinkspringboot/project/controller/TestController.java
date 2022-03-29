@@ -3,6 +3,8 @@ package com.thinkman.thinkspringboot.project.controller;
 import com.google.gson.Gson;
 import com.thinkman.thinkspringboot.Main;
 import com.thinkman.thinkspringboot.common.utils.AjaxResult;
+import com.thinkman.thinkspringboot.project.model.db.TTest;
+import com.thinkman.thinkspringboot.project.service.ITTestService;
 import com.thinkman.thinkspringboot.project.service.StudentService;
 import com.thinkman.thinkspringboot.project.service.Test1Service;
 import com.thinkman.thinkspringboot.project.service.TestService;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 public class TestController {
@@ -30,6 +34,9 @@ public class TestController {
 
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    ITTestService itTestService;
 
     @RequestMapping("/test")
     @ResponseBody
@@ -62,5 +69,12 @@ public class TestController {
     @ResponseBody
     public String getStudentById(@RequestParam(name = "sid", required = true, defaultValue = "1") int nId) {
         return new Gson().toJson(studentService.getByID(nId));
+    }
+
+    @RequestMapping("/mptest/list")
+    @ResponseBody
+    public AjaxResult list() {
+        List<TTest> lstRet = itTestService.list();
+        return AjaxResult.success(lstRet);
     }
 }
