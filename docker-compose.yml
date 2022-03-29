@@ -1,0 +1,22 @@
+version: "2.0"
+
+networks:
+  think_network:
+    external: true
+
+services:
+  thinkspringboot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: thinkspringboot
+#    volumes:
+#      - ./logs:/logs
+#      - ./localtime:/etc/localtime:ro
+#      - ./timezone:/etc/timezone:ro
+#    environment:
+#      - "TZ=Asia/Shanghai"
+#    command: bash -c "java -Xms2048m -Xmx2048m -XX:PermSize=2048m -XX:MaxPermSize=2048m -XX:MaxNewSize=1024m -jar /ruoyi.jar"
+    networks:
+      - think_network
+    restart: always
